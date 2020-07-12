@@ -1,0 +1,62 @@
+---
+title: "Introduction to Package hmmacc in Sleep/Wake Identification Using Actigraphy"
+author: "Xinyue Li"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Package hmmacc User Manual}
+  %\VignetteEngine{knitr::rmarkdown}
+  \usepackage[utf8]{inputenc}
+---
+
+## Introduction
+
+This vignette gives examples on how to apply HMM to accelerometer data to identify sleep/wake states. The accelerometer data should be in the summary activity count format, such as activity counts every thirty seconds. HMM assumes different log (activity count) distribution under sleep and wake states respectively: sleep state has more zeros and low activity counts (zero-inflated truncated Gaussian); wake state has relatively more activity counts (Gaussian). Examine the histogram/density plot of log activity counts in each state to see what distribution assumption is reasonable: i.e. if there are not many zeros but only small numbers in the sleep state, use Gaussian instead.
+
+## Example
+
+data 'ob' is an example of activity data for one individual of two non-consecutive days. It is a vector of length 1440, giving log activity counts every 1 minute. 1-840, 841-1440 are two non-consecutive activity sequences.
+
+There are many zeros present in the sleep data, and we use the HMM_ZIG function:
+```{r,warning=FALSE}
+suppressMessages(library(hmmacc))
+data(ob)
+piI <- c(0.9,0.1)  #state 1 and 2
+paramI <- list(c(0.4,3,1),  #state 1
+               c(6,1))      #state 2
+tranI <- matrix(c(0.9,0.1,0.2,0.8),nrow=2,ncol=2,byrow=T)
+
+re <- HMM_ZIG(Yob=ob,paramInit=paramI,tranInit=tranI,piInit=piI,ntime=c(1,841),maxIter=30,reltol=10^-6)
+```
+We further check the results:
+
+```{r,warning=FALSE}
+nstep <- length(re$loglik)
+##sleep state: on the original scale
+print(paste0("Sleep state: alpha=",round(re$alpha1[nstep],2),"; mu1=",round(exp(re$mu1[nstep]),1),"; sigma1=",round(exp(re$sd1[nstep]),1)))
+##wake state: on the original scale
+print(paste0("Wake state: mu2=",round(exp(re$mu2[nstep]),1),"; sigma2=",round(exp(re$sd2[nstep]),1)))
+
+##transition probability
+round(re$transit[[nstep]],3)
+
+```
+
+## Example 2
+
+In the case of not many zeros in the sleep state (checking the empirical distribution), use the HMM_G function assuming Gaussian instead. data 'ob2' is an example for HMM_G.
+```{r,warning=FALSE}
+suppressMessages(library(hmmacc))
+data(ob2)
+piI <- c(0.9,0.1)  #state 1 and 2
+paramI <- list(c(3,1),  #state 1
+               c(6,1))      #state 2
+tranI <- c(0.9,0.1,0.2,0.8)
+
+re <- HMM_G(Yob=ob2,paramInit=paramI,tranInit=tranI,piInit=piI,ntime=length(ob2),maxIter=20)
+```
+
+
+## Further circadian analysis
+
+For analysis of periodicities and circadian rhythms as well as interactive data visualization using trelliscope, consider the R package PML.

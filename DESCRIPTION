@@ -1,0 +1,22 @@
+Package: hmmacc
+Type: Package
+Title: A Hidden Markov Model Based Unsupervised Algorithm for
+        Sleep/Wake Identification Using Actigraphy
+Version: 1.0
+Date: 2020-07-02
+Authors@R: c(person(given = "Xinyue", 
+                    family = "Li", 
+                    email = "xinyue.li@yale.edu", 
+                    role = c("aut", "cre")))
+Maintainer: Xinyue Li <xinyue.li@yale.edu>
+Description: A Hidden Markov Model Based Unsupervised Algorithm for Sleep/Wake Identification Using Actigraphy (continuously measured objective physical activity data). Method reference: Li, X., Zhang, Y., Jiang, F., & Zhao, H. (2020). A novel machine learning unsupervised algorithm for sleep/wake identification using actigraphy. Chronobiology International, 1-14.
+Depends: R (>= 3.5.0)
+License: GPL (>= 2)
+Imports: truncreg, depmixS4
+Encoding: UTF-8
+RoxygenNote: 6.1.1
+URL: https://github.com/xinyue-L/hmmacc
+BugReports: https://github.com/xinyue-L/hmmacc/issues
+NeedsCompilation: no
+Packaged: 2020-07-12 12:46:23 UTC; xinyueli
+Author: Xinyue Li [aut, cre]
