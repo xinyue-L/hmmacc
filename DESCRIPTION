@@ -1,22 +1,15 @@
-Package: hmmacc
-Type: Package
-Title: A Hidden Markov Model Based Unsupervised Algorithm for
-        Sleep/Wake Identification Using Actigraphy
-Version: 1.0
-Date: 2020-07-02
-Authors@R: c(person(given = "Xinyue", 
-                    family = "Li", 
-                    email = "xinyue.li@yale.edu", 
-                    role = c("aut", "cre")))
-Maintainer: Xinyue Li <xinyue.li@yale.edu>
-Description: A Hidden Markov Model Based Unsupervised Algorithm for Sleep/Wake Identification Using Actigraphy (continuously measured objective physical activity data). Method reference: Li, X., Zhang, Y., Jiang, F., & Zhao, H. (2020). A novel machine learning unsupervised algorithm for sleep/wake identification using actigraphy. Chronobiology International, 1-14.
-Depends: R (>= 3.5.0)
+Package: sleephmm
+Title: The HMM-based Sleep/Wake Identification Algorithm Using Actigraphy
+Version: 0.0.0.9000
+Authors@R: 
+    person(given = "Xinyue",
+           family = "Li",
+           role = c("aut", "cre"),
+           email = "xinyueli@cityu.edu.hk")
+Description: This package includes the functions to apply the Hidden Markov Model-Based Unsupervised Sleep/Wake Identification Algorithm Using Actigraphy. The package is especially helpful when raw actigraph data are unavailable and summary count data are used. It takes accelerometer/actigraph data and output sleep information for downstream analysis. Method reference: Li, X., Zhang, Y., Jiang, F., & Zhao, H. (2020). A novel machine learning unsupervised algorithm for sleep/wake identification using actigraphy. Chronobiology International, 1-14.
 License: GPL (>= 2)
-Imports: truncreg, depmixS4
+LazyData: true
+Imports: GGIR, depmixS4, zoo
 Encoding: UTF-8
-RoxygenNote: 6.1.1
-URL: https://github.com/xinyue-L/hmmacc
-BugReports: https://github.com/xinyue-L/hmmacc/issues
-NeedsCompilation: no
-Packaged: 2020-07-12 12:46:23 UTC; xinyueli
-Author: Xinyue Li [aut, cre]
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.1.1

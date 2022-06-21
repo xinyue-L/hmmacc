@@ -1,0 +1,17 @@
+## directories
+datadir="C:/myfolder/datadir"
+outputdir="C:/myfolder/out"
+metadir="C:/myfolder/out/output_dir"
+
+## pre-processing
+sleep.prep(datadir=datadir,
+           outputdir=outputdir,
+           f0=1,f1=0, do.report=c(2),overwrite=TRUE,visualreport=FALSE)
+
+##run through the analysis to obtain sleep information
+sleep.part3(metadatadir = metadir, overwrite=T)
+sleep.part4(metadatadir = metadir, overwrite=T)
+sleep.part5(metadatadir = metadir, overwrite=T, daysleeplength = 0.5)
+sleep.part6(metadatadir = metadir)
+
+##output will be under: C:/myfolder/out/output_dir/meta/ms6.out.new
